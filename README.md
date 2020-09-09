@@ -6,9 +6,10 @@
 [![Release Version](https://img.shields.io/github/release/mimblewimble/grin.svg)](https://github.com/mimblewimble/grin/releases)
 [![License](https://img.shields.io/github/license/mimblewimble/grin.svg)](https://github.com/mimblewimble/grin/blob/master/LICENSE)
 
-# MWC
+# Mimble Coin
 
-MWC is an in-progress implementation of the MimbleWimble protocol. Many characteristics are still undefined but the following constitutes a first set of choices:
+Mimble Coin is an in-progress implementation of the MimbleWimble protocol. Mostly differentiated by it's codebase Grin by a fixxed Supplycap. <br>
+Furthermore this Fork is a proactive measure to keep all the hard work of the MWC Devs alive even if their stream of funding fails. We hold deep respect for all contributors upstream of our Codebase, and feel like code is the correct way to express opinions! <br>Many characteristics are still undefined but the following constitutes a first set of choices:
 
   * Clean and minimal implementation, and aiming to stay as such.
   * Follows the Mimblewimble protocol, which provides hidden amounts and scaling advantages.
@@ -33,11 +34,13 @@ To get involved, you can read our [contributing docs](CONTRIBUTING.md).
 To learn more about the technology, read our [introduction](doc/intro.md).
 
 
-To build and try out MWC, see the [build docs](doc/build.md).
+To build and try out mimble, see the [build docs](doc/build.md).
 
 ## Credits
 
 Tom Elvis Jedusor for the first formulation of MimbleWimble.
+
+Ignotus Peverell for creating Grin.
 
 Andrew Poelstra for his related work and improvements.
 
