@@ -11,8 +11,8 @@ Furthermore this Fork of MWC is created as a proactive measure to keep all the 
 
 No Huge Premine, no Airdrops, no HODL Program, only code and rebases ran and inspired by the mimblewimble Community secured by it's Miners.
 However, there will be a 1% Premine in order to reward Community Developers appropriatly over time and to fund development. <br>
-Altho suboptimal when it comes to trust, this 1% Supply should quickly get diluted, so the upsides should outweigh any potential risk. 
-I (Forkladdgud) did create this project to drive the MW adoption foward in a fair and distributed environment. Fell free to contribute!<br> <br>
+Altho suboptimal when it comes to trust and the aspect of decentralization, this 1% Supply should quickly get diluted and the power I hold should quickly fade away while still allowing the funding if there is enough interesst. The upsides should outweigh any potential risk as the Premine is rather small. <br>
+I ([Forkladdgud](https://tzedaqyal.wordpress.com/2012/09/25/god-in-disguise-poetic-protest-against-nazism-1933/)) did create this project to drive the MW adoption foward in a fair and distributed environment but will remain anonymous however. Fell free to contribute!<br> <br>
 <br>Many characteristics are still undefined but the following constitutes a first set of choices:
 
   * Clean and minimal implementation, and aiming to stay as such.
