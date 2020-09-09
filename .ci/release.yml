@@ -36,8 +36,8 @@ steps:
     displayName: Github release
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'), eq(variables['CI_JOB'], 'release' ))
     inputs:
-      gitHubConnection: 'github.com_bayk'
-      repositoryName: 'mwcproject/mwc-node'
+      gitHubConnection: 'github.com_MimbleCoin'
+      repositoryName: 'MimbleCoin/mimble-node'
       action: 'edit'
       tagSource: "Git tag"
       tag: '$(build.my_tag)'
