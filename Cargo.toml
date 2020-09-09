@@ -16,7 +16,7 @@ members = ["api", "chain", "config", "core", "keychain", "p2p", "servers", "stor
 exclude = ["etc/gen_gen"]
 
 [[bin]]
-name = "mwc"
+name = "mimble"
 path = "src/bin/grin.rs"
 
 [dependencies]
