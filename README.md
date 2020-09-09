@@ -37,7 +37,9 @@ To build and try out mimble, see the [build docs](doc/build.md).
 
 Tom Elvis Jedusor for the first formulation of MimbleWimble.
 
-Ignotus Peverell for creating Grin.
+Ignotus Peverell for creating Grin and the Grin Community as a whole for it's contributions.
+
+The Developers of MimbleWimbleCoin for creating MWC and the MWC Community as a whole for it's contributions.
 
 Andrew Poelstra for his related work and improvements.
 
