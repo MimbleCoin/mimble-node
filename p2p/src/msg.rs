@@ -36,8 +36,8 @@ pub const USER_AGENT: &str = concat!("MW/MWC ", env!("CARGO_PKG_VERSION"));
 // MWC - Magic number are updated to be different from grin.
 /// Magic numbers expected in the header of every message
 const OTHER_MAGIC: [u8; 2] = [21, 19];
-const FLOONET_MAGIC: [u8; 2] = [17, 36];
-const MAINNET_MAGIC: [u8; 2] = [13, 77];
+const FLOONET_MAGIC: [u8; 2] = [18, 26];
+const MAINNET_MAGIC: [u8; 2] = [11, 47];
 
 // Types of messages.
 // Note: Values here are *important* so we should only add new values at the
