@@ -22,7 +22,6 @@ use std::cmp::{max, min};
 
 use crate::global;
 use crate::pow::Difficulty;
-use crate::core::block::HeaderVersion;
 use crate::core::hash::{Hash, ZERO_HASH};
 
 /// A grin is divisible to 10^9, following the SI prefixes
@@ -131,14 +130,6 @@ pub const BLOCK_KERNEL_WEIGHT: usize = 3;
 ///
 pub const MAX_BLOCK_WEIGHT: usize = 40_000;
 
-/// Check whether the block version is valid at a given height, in case of a fork in the future
-pub fn valid_header_version(height: u64, version: u16) -> bool {
-	// uncomment below if there is ever a Hardfork
-
-	version == 1
-
-
-}
 
 /// Number of blocks used to calculate difficulty adjustments
 pub const DIFFICULTY_ADJUST_WINDOW: u64 = HOUR_HEIGHT;
