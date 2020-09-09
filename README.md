@@ -6,11 +6,13 @@
 # Mimble Coin
 
 Mimble Coin is an in-progress implementation of the MimbleWimble protocol. <br>
-Mostly differentiated from it's codebase Grin by a fixed Supplycap. <br>
-Furthermore this Fork is created as a proactive measure to keep all the hard work of the MWC Devs alive even if their stream of funding fails. <br>We hold deep respect for all contributors in our or any of the upstream Repo's, but feel like code is the correct way to express opinions and is what matters in the end.<br> 
-<br>
-So even though we may disagree, let's settle this disagreement by Code shall we? 
-<br>
+Mostly differentiated from it's upstream codebase Grin by a fixed Supplycap. <br>
+Furthermore this Fork of MWC is created as a proactive measure to keep all the hard work of the MWC Devs alive even if their stream of funding fails. We hold deep respect for all contributors in our or any of the upstream Repo's. But at the same time the Mimblewimble community expressed their interesst in a Community driven, fairly distributed MW-adapation with a fixed Supply Cap. <br>
+
+No Huge Premine, no Airdrops, no HODL Program, only code and rebases ran and inspired by the mimblewimble Community secured by it's Miners.
+However, there will be a 1% Premine in order to reward Community Developers appropriatly over time and to fund development. <br>
+Altho suboptimal when it comes to trust, this 1% Supply should quickly get diluted, so the upsides should outweigh any potential risk. 
+I (Forkladdgud) did create this project to drive the MW adoption foward in a fair and distributed environment. Fell free to contribute!<br> <br>
 <br>Many characteristics are still undefined but the following constitutes a first set of choices:
 
   * Clean and minimal implementation, and aiming to stay as such.
