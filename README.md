@@ -6,7 +6,7 @@
 # Mimble Coin
 
 Mimble Coin is an in-progress implementation of the MimbleWimble protocol. <br>
-Mostly differentiated by it's codebase Grin by a fixed Supplycap. <br>
+Mostly differentiated from it's codebase Grin by a fixed Supplycap. <br>
 Furthermore this Fork is created as a proactive measure to keep all the hard work of the MWC Devs alive even if their stream of funding fails. <br>We hold deep respect for all contributors in our or any of the upstream Repo's, but feel like code is the correct way to express opinions and is what matters in the end.<br> 
 <br>
 So even though we may disagree, let's settle this disagreement by Code shall we? 
