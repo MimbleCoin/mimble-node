@@ -61,8 +61,8 @@ pub enum Error {
 	#[fail(display = "Block weight based on inputs outputs kernels exceeded")]
 	WeightExceeded,
 	/// Block version is invalid for a given block height
-	///#[fail(display = "Block version {:?} is invalid", _0)]
-	///InvalidBlockVersion(HeaderVersion),
+	#[fail(display = "Block version {:?} is invalid", _0)]
+	InvalidBlockVersion(HeaderVersion),
 	/// Block time is invalid
 	#[fail(display = "Block time is invalid")]
 	InvalidBlockTime,
@@ -184,27 +184,27 @@ impl Hashed for HeaderEntry {
 }
 
 /// Some type safety around header versioning.
-///#[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd, Serialize)]
-///pub struct HeaderVersion(pub u16);
+#[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd, Serialize)]
+pub struct HeaderVersion(pub u16);
 
-///impl From<HeaderVersion> for u16 {
-///	fn from(v: HeaderVersion) -> u16 {
-///		v.0
-///	}
-///}
+impl From<HeaderVersion> for u16 {
+	fn from(v: HeaderVersion) -> u16 {
+		v.0
+	}
+}
 
-///impl Writeable for HeaderVersion {
-///	fn write<W: Writer>(&self, writer: &mut W) -> Result<(), ser::Error> {
-///		writer.write_u16(self.0)
-///	}
-///}
+impl Writeable for HeaderVersion {
+	fn write<W: Writer>(&self, writer: &mut W) -> Result<(), ser::Error> {
+		writer.write_u16(self.0)
+	}
+}
 
-///impl Readable for HeaderVersion {
-///	fn read(reader: &mut dyn Reader) -> Result<HeaderVersion, ser::Error> {
-///		let version = reader.read_u16()?;
-///		Ok(HeaderVersion(version))
-///	}
-///}
+impl Readable for HeaderVersion {
+	fn read(reader: &mut dyn Reader) -> Result<HeaderVersion, ser::Error> {
+		let version = reader.read_u16()?;
+		Ok(HeaderVersion(version))
+	}
+}
 
 /// Block header, fairly standard compared to other blockchains.
 #[derive(Clone, Debug, PartialEq, Serialize)]
@@ -654,9 +654,9 @@ impl Block {
 			vec![agg_tx.offset.clone(), prev.total_kernel_offset.clone()],
 			vec![],
 		)?;
-
+		
 		// Determine the height and associated version for the new header.
-		let height = prev.height + 1;
+		let height = prev.height + 1;		
 		let version = consensus::header_version(height);
 
 		let now = Utc::now().timestamp();
