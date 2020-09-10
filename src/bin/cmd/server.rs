@@ -51,7 +51,7 @@ fn start_server_tui(
 	// Run the UI controller.. here for now for simplicity to access
 	// everything it might need
 	if config.run_tui.unwrap_or(false) {
-		warn!("Starting MWC in UI mode...");
+		warn!("Starting Mimble Node in UI mode...");
 		servers::Server::start(
 			config,
 			logs_rx,
@@ -63,10 +63,10 @@ fn start_server_tui(
 			},
 			allow_to_stop,
 		)
-		.map_err(|e| error!("Unable to start MWC in UI mode, {}", e))
-		.expect("Unable to start MWC in UI mode");
+		.map_err(|e| error!("Unable to start Mimble Node in UI mode, {}", e))
+		.expect("Unable to start Mimble Node in UI mode");
 	} else {
-		warn!("Starting MWC w/o UI...");
+		warn!("Starting Mimble Node w/o UI...");
 		servers::Server::start(
 			config,
 			logs_rx,
@@ -83,8 +83,8 @@ fn start_server_tui(
 			},
 			allow_to_stop,
 		)
-		.map_err(|e| error!("Unable to start MWC w/o UI mode, {}", e))
-		.expect("Unable to start MWC w/o UI mode");
+		.map_err(|e| error!("Unable to start Mimble Node w/o UI mode, {}", e))
+		.expect("Unable to start Mimble Node w/o UI mode");
 	}
 }
 
@@ -151,12 +151,12 @@ pub fn server_command(
 				start_server(server_config, logs_rx, allow_to_stop);
 			}
 			("", _) => {
-				println!("Subcommand required, use 'mwc help server' for details");
+				println!("Subcommand required, use 'mimble help server' for details");
 			}
 			(cmd, _) => {
 				println!(":: {:?}", server_args);
 				panic!(
-					"Unknown server command '{}', use 'mwc help server' for details",
+					"Unknown server command '{}', use 'mimble help server' for details",
 					cmd
 				);
 			}
