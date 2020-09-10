@@ -33,14 +33,9 @@ use crate::p2p::types::PeerAddr;
 use crate::p2p::ChainAdapter;
 use crate::util::StopState;
 
-// MWC - all DNS hosts are updated with seed1.mwc.mw/seed2.mwc.mw and others
+// Mimble - Currently only mimbleseed.ddns.net as seed node, needs Community support if adopted. 
 const MAINNET_DNS_SEEDS: &'static [&'static str] = &[
-	"mainnet.seed1.mwc.mw", // cpg
-	"mainnet.seed2.mwc.mw", // cpg
-	"52.235.38.45",         // JonB
-	"51.89.98.17",          // Greg
-	"207.148.27.129",       // Greg
-	"mwcseed.ddns.net",     // Konstantin
+	"mimbleseed.ddns.net",     // forkladdgud
 ];
 const FLOONET_DNS_SEEDS: &'static [&'static str] = &["seed1.mwc.mw", "seed2.mwc.mw"];
 
