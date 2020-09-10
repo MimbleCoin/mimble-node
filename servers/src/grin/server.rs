@@ -164,7 +164,7 @@ impl Server {
 	fn one_grin_at_a_time(config: &ServerConfig) -> Result<Arc<File>, Error> {
 		let path = Path::new(&config.db_root);
 		fs::create_dir_all(path.clone())?;
-		let path = path.join("mwc.lock");
+		let path = path.join("mimble.lock");
 		let lock_file = fs::OpenOptions::new()
 			.read(true)
 			.write(true)
@@ -174,7 +174,7 @@ impl Server {
 			let mut stderr = std::io::stderr();
 			writeln!(
 				&mut stderr,
-				"Failed to lock {:?} (mwc server already running?)",
+				"Failed to lock {:?} (Mimble server already running?)",
 				path
 			)
 			.expect("Could not write to stderr");
@@ -193,8 +193,8 @@ impl Server {
 		stratum_ip_pool: Arc<connections::StratumIpPool>,
 	) -> Result<Server, Error> {
 		let header_cache_size = config.header_cache_size.unwrap_or(25_000);
-		//let duration_sync_long = config.duration_sync_long.unwrap_or(150);
-		//let duration_sync_short = config.duration_sync_short.unwrap_or(100);
+		let duration_sync_long = config.duration_sync_long.unwrap_or(150);
+		let duration_sync_short = config.duration_sync_short.unwrap_or(100);
 
 		// Obtain our lock_file or fail immediately with an error.
 		let lock_file = Server::one_grin_at_a_time(&config).map_err(|e| {
@@ -272,10 +272,10 @@ impl Server {
 
 		if config.tor_config.tor_enabled {
 			if !config.p2p_config.host.is_loopback() {
-				error!("If Tor is enabled, host must be '127.0.0.1'.");
-				println!("If Tor is enabled, host must be '127.0.0.1'.");
+				error!("If tor is enabled, host must be '127.0.0.1'.");
+				println!("If tor is enabled, host must be '127.0.0.1'.");
 				return Err(Error::Configuration(
-					"If Tor is enabled, host must be '127.0.0.1'.".to_owned(),
+					"If tor is enabled, host must be '127.0.0.1'.".to_owned(),
 				));
 			}
 
@@ -318,7 +318,7 @@ impl Server {
 							}
 							Err(e) => {
 								input.send(None).unwrap();
-								error!("failed to start Tor due to {}", e);
+								error!("failed to start tor due to {}", e);
 								Err(ErrorKind::TorConfig(format!("Failed to init tor, {}", e)))
 							}
 						};
@@ -328,9 +328,9 @@ impl Server {
 				sp.update(format!("Finished!"));
 				onion_address = resp.unwrap_or(None);
 				if onion_address.is_some() {
-					info!("Tor successfully started: resp = {:?}", onion_address);
+					info!("tor successfully started: resp = {:?}", onion_address);
 				} else {
-					error!("Tor failed to start!");
+					error!("tor failed to start!");
 					println!("Failed to start tor. See log for details");
 					std::process::exit(-1);
 				}
@@ -339,13 +339,13 @@ impl Server {
 
 				if onion_address.is_none() {
 					error!("onion_address must be specified with external tor. Halting!");
-					println!("onion_address must be specified with external tor. Halting!");
+					println!("onion_address must be specified with extenral tor. Halting!");
 					std::process::exit(-1);
 				}
 				let otemp = onion_address.clone().unwrap();
 				if otemp == "" {
 					error!("onion_address must be specified with external tor. Halting!");
-					println!("onion_address must be specified with external tor. Halting!");
+					println!("onion_address must be specified with extenral tor. Halting!");
 					std::process::exit(-1);
 				}
 				info!(
@@ -423,6 +423,9 @@ impl Server {
 			p2p_server.peers.clone(),
 			shared_chain.clone(),
 			stop_state.clone(),
+			duration_sync_long,
+			duration_sync_short,
+			header_cache_size,
 		)?;
 
 		let p2p_inner = p2p_server.clone();
@@ -474,7 +477,7 @@ impl Server {
 			stop_state.clone(),
 		)?;
 
-		warn!("MWC server started.");
+		warn!("Mimble server started.");
 		Ok(Server {
 			config,
 			p2p: p2p_server,
@@ -508,7 +511,7 @@ impl Server {
 			p
 		}
 	}
-	/// Start the Tor listener for inbound connections
+	/// Start the tor listener for inbound connections
 	pub fn init_tor_listener(
 		addr: &str,
 		api_addr: &str,
@@ -519,7 +522,7 @@ impl Server {
 		let tor_dir = if tor_base.is_some() {
 			format!("{}/tor/listener", tor_base.unwrap())
 		} else {
-			format!("{}/tor/listener", "~/.mwc/main")
+			format!("{}/tor/listener", "~/.mimble/main")
 		};
 
 		let home_dir = dirs::home_dir()
@@ -568,11 +571,11 @@ impl Server {
 		.unwrap();
 
 		info!(
-			"Starting Tor inbound listener at address {}.onion, binding to {}",
+			"Starting TOR inbound listener at address {}.onion, binding to {}",
 			onion_address, addr
 		);
 
-		// Start Tor process
+		// Start TOR process
 		let tor_path = PathBuf::from(format!("{}/torrc", tor_dir));
 		let tor_path = fs::canonicalize(&tor_path)?;
 		let tor_path = Server::adjust_canonicalization(tor_path);
