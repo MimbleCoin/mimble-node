@@ -44,7 +44,7 @@ pub mod built_info {
 pub fn info_strings() -> (String, String) {
 	(
 		format!(
-			"This is MWC version {}{}, built for {} by {}.",
+			"This is Mimble Node version {}{}, built for {} by {}.",
 			built_info::PKG_VERSION,
 			built_info::GIT_VERSION.map_or_else(|| "".to_owned(), |v| format!(" (git {})", v)),
 			built_info::TARGET,
@@ -72,7 +72,7 @@ fn main() {
 }
 
 fn real_main() -> i32 {
-	let yml = load_yaml!("mwc.yml");
+	let yml = load_yaml!("mimble.yml");
 	let args = App::from_yaml(yml)
 		.version(built_info::PKG_VERSION)
 		.get_matches();
@@ -84,7 +84,7 @@ fn real_main() -> i32 {
 			println!();
 			println!("As of v1.1.0, the wallet has been split into a separate executable.");
 			println!(
-				"Please visit https://github.com/mimblewimble/grin-wallet/releases to download"
+				"Please visit https://github.com/MimbleCoin/mimble-wallet/releases to download"
 			);
 			println!();
 			return 0;
@@ -97,6 +97,7 @@ fn real_main() -> i32 {
 	} else if args.is_present("usernet") {
 		global::ChainTypes::UserTesting
 	} else {
+		//panic!("Error loading server configuration: {}", e); if we actually want to use this for the launch
 		global::ChainTypes::Mainnet
 	};
 
