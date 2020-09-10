@@ -21,6 +21,7 @@
 use std::cmp::{max, min};
 
 use crate::global;
+use crate::core::block::HeaderVersion;
 use crate::pow::Difficulty;
 use crate::core::hash::{Hash, ZERO_HASH};
 
@@ -129,6 +130,22 @@ pub const BLOCK_KERNEL_WEIGHT: usize = 3;
 /// `40_000 / 47 = 851` (txs per block)
 ///
 pub const MAX_BLOCK_WEIGHT: usize = 40_000;
+/// Check whether the block version is valid at a given height, in case of a fork in the future
+pub fn valid_header_version(height: u64, version: HeaderVersion) -> bool {
+
+	version == HeaderVersion(1)
+
+
+}
+/// Check whether the block version is valid at a given height
+/// MWC doesn't want like grin change the algorithms for mining. So version is constant
+pub fn header_version(height: u64) -> HeaderVersion {
+	//if height < get_c31_hard_fork_block_height() {
+		HeaderVersion(1)
+	//} else {
+	//	HeaderVersion(2)
+	//}
+}
 
 
 /// Number of blocks used to calculate difficulty adjustments
