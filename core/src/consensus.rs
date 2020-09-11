@@ -376,7 +376,7 @@ pub fn calc_mwc_block_reward(height: u64) -> u64 {
 	} else {
 		(height-1) / MWC_BLOCKS_PER_GROUP
 	};
-	if group_num == 1 {
+	if group_num > 0 && group_num <= 1 {
 		let start_reward = 2_846_952_380;
 		return start_reward
 		 // First period, increased reward to distribute more coins to first adopters and dilute dev funds power
