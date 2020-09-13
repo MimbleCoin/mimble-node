@@ -591,8 +591,8 @@ fn spend_rewind_spend() {
 		let tx1 = build::transaction(
 			KernelFeatures::Plain { fee: 20000 },
 			vec![
-				build::coinbase_input(consensus::MWC_FIRST_GROUP_REWARD, key_id_coinbase.clone()),
-				build::output(consensus::MWC_FIRST_GROUP_REWARD - 20000, key_id30.clone()),
+				build::coinbase_input(consensus::2_846_952_380, key_id_coinbase.clone()),
+				build::output(consensus::2_846_952_380 - 20000, key_id30.clone()),
 			],
 			&kc,
 			&pb,
@@ -670,8 +670,8 @@ fn spend_in_fork_and_compact() {
 		let tx1 = build::transaction(
 			KernelFeatures::Plain { fee: 20000 },
 			vec![
-				build::coinbase_input(consensus::MWC_FIRST_GROUP_REWARD, key_id2.clone()),
-				build::output(consensus::MWC_FIRST_GROUP_REWARD - 20000, key_id30.clone()),
+				build::coinbase_input(2_846_952_380, key_id2.clone()),
+				build::output(2_846_952_380 - 20000, key_id30.clone()),
 			],
 			&kc,
 			&pb,
@@ -688,8 +688,8 @@ fn spend_in_fork_and_compact() {
 		let tx2 = build::transaction(
 			KernelFeatures::Plain { fee: 20000 },
 			vec![
-				build::input(consensus::MWC_FIRST_GROUP_REWARD - 20000, key_id30.clone()),
-				build::output(consensus::MWC_FIRST_GROUP_REWARD - 40000, key_id31.clone()),
+				build::input(2_846_952_380 - 20000, key_id30.clone()),
+				build::output(2_846_952_380 - 40000, key_id31.clone()),
 			],
 			&kc,
 			&pb,
