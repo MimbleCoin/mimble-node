@@ -51,8 +51,8 @@ pub fn reward(fee: u64, height: u64) -> u64 {
 	block_reward.saturating_add(fee)
 }
 
-/// Mimble  genesis block reward in nanocoins (200'654,3751 coins) (200_000_000_000_000 + 41_800_000 + 653_000_000_000 to get to exactly 20M max Supply and close the difference from modifications
-pub const GENESIS_BLOCK_REWARD: u64 = 200_000_000_000_000 + 41_800_000 + 653_333_333_333;
+/// Mimble  genesis block reward in nanocoins (200'654,3751 coins) (200_000_000_000_000 + 41_800_000 + 653_000_000_000 to get to exactly 20M max Supply and close the difference from modifications
+pub const GENESIS_BLOCK_REWARD: u64 = 200_000_000_000_000 + 41_800_000 + 3_333_333 - 1_533_333;
 
 /// Nominal height for standard time intervals, hour is 60 blocks
 pub const HOUR_HEIGHT: u64 = 3600 / BLOCK_TIME_SEC;
@@ -377,14 +377,15 @@ pub fn calc_mwc_block_reward(height: u64) -> u64 {
 		(height-1) / MWC_BLOCKS_PER_GROUP
 	};
 	if group_num < 1 {
-		let start_reward = 2_846_952_380;
+		let start_reward = 5_142_857_143;
 		return start_reward
 		 // First period, increased reward to distribute more coins to first adopters and dilute dev funds power
 	} else if group_num >= MWC_GROUPS_NUM {
 		 0 // far far future, no rewards, sorry
 	} else {
-		let start_reward = MWC_FIRST_GROUP_REWARD;
+		let start_reward = MWC_FIRST_GROUP_REWARD * 2;
 		let group_div = 1 << group_num;
+		println!("{}", group_div);
 		return start_reward / group_div
 	}
 }
@@ -400,8 +401,8 @@ pub fn calc_mwc_block_overage(height: u64, genesis_had_reward: bool) -> u64 {
 	// including this one happens implicitly.
 	// Because "this block is included", but 0 block (genesis) block is excluded, we will keep height as it is
 	let mut block_count = height;
-	let mut reward_per_block = MWC_FIRST_GROUP_REWARD;
-	let boostedreward_per_block = 2_846_952_380;
+	let reward_per_block = MWC_FIRST_GROUP_REWARD;
+	let boostedreward_per_block = 5_142_857_143;
 	let mut overage: u64 = GENESIS_BLOCK_REWARD; // genesis block reward
 
 	for _x in 0..MWC_GROUPS_NUM {
@@ -409,8 +410,7 @@ pub fn calc_mwc_block_overage(height: u64, genesis_had_reward: bool) -> u64 {
 			//exclude first froup due to special rewards, after that go back to main distribution plan
 			overage += min(block_count, blocks_per_group) * boostedreward_per_block;
 		} else {
-			overage += min(block_count, blocks_per_group) * reward_per_block;
-			reward_per_block /= 2;
+			overage += min(block_count, blocks_per_group) * calc_mwc_block_reward(_x * blocks_per_group +  1);
 		}
 		if block_count < blocks_per_group {
 			break;
@@ -475,101 +475,144 @@ mod test {
 	fn test_calc_mwc_block_reward() {
 		// Code is crucial, so just checking all groups one by one manually.
 		// We don't use the constants here because we can mess up with them as well.
-		assert_eq!(calc_mwc_block_reward(0), 200_000 * 1_000_000_000 + 41_800_000); // group 1, genesis 200K (+ 0,41800000 to match 20KK exactly, so 980.000,41800000 are left open to distribute)
-		assert_eq!(calc_mwc_block_reward(1), 2_846_952_380); // group 1 2.84695238
-		assert_eq!(calc_mwc_block_reward(2), 2_846_952_380); // group 1
-        	assert_eq!(calc_mwc_block_reward(2_100_000 - 1), 2_846_952_380); // group 1
-        	assert_eq!(calc_mwc_block_reward(2_100_000), 2_846_952_380); // group 1
-		assert_eq!(calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP - 1), 2_846_952_380); // group 1
-       	 	assert_eq!(calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP), 2_846_952_380); // group 1
-		assert_eq!(calc_mwc_block_reward(2_100_000+1), 1_190_476_190); // group 2
-		assert_eq!(
-			calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP+1),
-			MWC_FIRST_GROUP_REWARD / 2
-		); // group 2
-		assert_eq!(calc_mwc_block_reward(2_100_000 + 200), 1_190_476_190); // group 2
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 2 + 200), 595_238_095); // group 3
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 3 + 200), 297_619_047); // group 4
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 4 + 200), 148_809_523); // group 5
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 5 + 200), 74_404_761); // group 6
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 6 + 200), 37_202_380); // group 7
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 7 + 200), 18_601_190); // group 8
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 8 + 200), 9_300_595); // group 9
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 9 + 200), 4_650_297); // group 10
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 10 + 200), 2_325_148); // group 11
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 11 + 200), 1_162_574); // group 12
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 12 + 200), 581_287); // group 13
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 13 + 200), 290_643); // group 14
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 14 + 200), 145_321); // group 15
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 15 + 200), 72_660); // group 16
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 16 + 200), 36_330); // group 17
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 17 + 200), 18_165); // group 18
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 18 + 200), 9_082); // group 19
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 19 + 200), 4_541); // group 20
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 20 + 200), 2_270); // group 21
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 21 + 200), 1_135); // group 22
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 22 + 200), 567); // group 23
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 23 + 200), 283); // group 24
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 24 + 200), 141); // group 25
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 25 + 200), 70); // group 26
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 26 + 200), 35); // group 27
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 27 + 200), 17); // group 28
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 28 + 200), 8); // group 29
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 29 + 200), 4); // group 30
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 30 + 200), 2); // group 32
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 31 + 200), 1); // group 32
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 32 + 200), 0); // group 32+
-		assert_eq!(calc_mwc_block_reward(2_100_000 * 320 + 200), 0); // group 32+
+		assert_eq!(calc_mwc_block_reward(0), 200_000 * 1_000_000_000 + 43_600_000 ); // group 1, genesis 200K (+ 43_600_000 to matche xactly 21KK
+		assert_eq!(calc_mwc_block_reward(1), 5_142_857_143); // group 1 2.84695238
+		assert_eq!(calc_mwc_block_reward(2), 5_142_857_143); // group 1
+        	assert_eq!(calc_mwc_block_reward(2_100_000 - 1), 5_142_857_143); // group 1
+        	assert_eq!(calc_mwc_block_reward(2_100_000), 5_142_857_143); // group 1
+		assert_eq!(calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP - 1), 5_142_857_143); // group 1
+       	 	assert_eq!(calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP), 5_142_857_143); // group 1
+		assert_eq!(calc_mwc_block_reward(2_100_000+1), MWC_FIRST_GROUP_REWARD); // group 2
+		assert_eq!(calc_mwc_block_reward(MWC_BLOCKS_PER_GROUP + 1), MWC_FIRST_GROUP_REWARD); // group 2
+		assert_eq!(calc_mwc_block_reward(2_100_000 + 200), MWC_FIRST_GROUP_REWARD); // group 2
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 2 + 200), MWC_FIRST_GROUP_REWARD /2); // group 21_190_476_190
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 3 + 200), MWC_FIRST_GROUP_REWARD /4); // group 4595_238_095
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 4 + 200), MWC_FIRST_GROUP_REWARD /8); // group 5297_619_047
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 5 + 200), MWC_FIRST_GROUP_REWARD /16);
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 6 + 200), MWC_FIRST_GROUP_REWARD /32); // group 6
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 7 + 200), MWC_FIRST_GROUP_REWARD /64); // group 7
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 8 + 200), MWC_FIRST_GROUP_REWARD /128); // group 8
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 9 + 200), MWC_FIRST_GROUP_REWARD /256); // group 9
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 10 + 200), MWC_FIRST_GROUP_REWARD /512); // group 10
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 11 + 200), MWC_FIRST_GROUP_REWARD /1024); // group 11
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 12 + 200), MWC_FIRST_GROUP_REWARD /2048); // group 12
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 13 + 200), MWC_FIRST_GROUP_REWARD /4096); // group 13
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 33 + 200), 0); // group 33+
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 320 + 200), 0); // group 33+
 	}
 
 	// MWC  testing calc_mwc_block_overage output for the schedule that documented at definition of calc_mwc_block_reward
 	#[test]
 	fn test_calc_mwc_block_overage() {
 		let genesis_reward: u64 = GENESIS_BLOCK_REWARD;
-		
+		assert_eq!(calc_mwc_block_reward(1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_001) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 2 + 1) * MWC_BLOCKS_PER_GROUP 
++ calc_mwc_block_reward(2_100_000 * 3 + 1) * MWC_BLOCKS_PER_GROUP 
++ calc_mwc_block_reward(2_100_000 * 4 + 1) * MWC_BLOCKS_PER_GROUP 
++ calc_mwc_block_reward(2_100_000 * 5 + 1) * MWC_BLOCKS_PER_GROUP 
++ calc_mwc_block_reward(2_100_000 * 6 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 7 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 8 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 9 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 10 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 11 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 12 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 13 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 14 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 15 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 16 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 17 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 18 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 19 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 20 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 21 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 22 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 23 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 24 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 25 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 26 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 27 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 28 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 29 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 30 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 31 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 32 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 33 + 1) * MWC_BLOCKS_PER_GROUP
++ calc_mwc_block_reward(2_100_000 * 34 + 1) * MWC_BLOCKS_PER_GROUP
++ genesis_reward , 21_000_000 * GRIN_BASE ); // group 2
 		assert_eq!(calc_mwc_block_overage(0, true), genesis_reward); // Doesn't make sence to call for the genesis block
 		assert_eq!(calc_mwc_block_overage(0, false), 0); // Doesn't make sence to call for the genesis block
 		assert_eq!(
 			calc_mwc_block_overage(1, true),
-			genesis_reward + boostedreward_per_block * 1
+			genesis_reward + 5_142_857_143 * 1
 		);
 
 		assert_eq!(
 			calc_mwc_block_overage(30, true),
-			genesis_reward + boostedreward_per_block * 30
+			genesis_reward + 5_142_857_143 * 30
 		);
 		assert_eq!(
 			calc_mwc_block_overage(30, false),
-			boostedreward_per_block * 30
+			5_142_857_143 * 30
 		);
 		// pre last block in the first group
 		assert_eq!(
 			calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP - 1, true),
-			genesis_reward + boostedreward_per_block * (MWC_BLOCKS_PER_GROUP - 1)
+			genesis_reward + 5_142_857_143 * (MWC_BLOCKS_PER_GROUP - 1)
 		);
         // last block in the first group
 		assert_eq!(
 			calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP, true),
 			genesis_reward
-				+ boostedreward_per_block * MWC_BLOCKS_PER_GROUP
+				+ 5_142_857_143 * MWC_BLOCKS_PER_GROUP
 		);
         // first block in the second group
         assert_eq!(
-            calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP+1, true),
+            calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP + 1, true),
             genesis_reward
-                + MWC_FIRST_GROUP_REWARD * MWC_BLOCKS_PER_GROUP
-                + MWC_FIRST_GROUP_REWARD / 2
+                + 5_142_857_143 * MWC_BLOCKS_PER_GROUP 
+		+ MWC_FIRST_GROUP_REWARD                    
         );
+
+
+
+
+
+        // 60th block in the second group
+        assert_eq!(
+            calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP + 60, true),
+            genesis_reward
+                + 5_142_857_143 * MWC_BLOCKS_PER_GROUP
+                + MWC_FIRST_GROUP_REWARD * 60
+        );
+
+       // 60th block in the second group
+        assert_eq!(
+            calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP * 2 + 60, true),
+            genesis_reward
+                + 5_142_857_143 * MWC_BLOCKS_PER_GROUP
+                + MWC_FIRST_GROUP_REWARD * MWC_BLOCKS_PER_GROUP
+                + MWC_FIRST_GROUP_REWARD / 2 * 60
+        );
+
+     
 
 		assert_eq!(
 			calc_mwc_block_overage(MWC_BLOCKS_PER_GROUP + 5000, true),
 			genesis_reward
-				+ MWC_FIRST_GROUP_REWARD * MWC_BLOCKS_PER_GROUP + 5000 * MWC_FIRST_GROUP_REWARD / 2
+				+ 5_142_857_143 * MWC_BLOCKS_PER_GROUP 
+				+ 5000 * MWC_FIRST_GROUP_REWARD 
 		);
 
-		// Calculating the total number of coins
+		// Calculating the total number of coins 
 		let total_blocks_reward = calc_mwc_block_overage(2_100_000_000 * 320, true);
 		// Expected 20M in total. The coin base is exactly 20M
-		assert_eq!( total_blocks_reward, 20_000_000 * GRIN_BASE );
+		assert_eq!(calc_mwc_block_reward(1) * MWC_BLOCKS_PER_GROUP, 5_142_857_143 * MWC_BLOCKS_PER_GROUP);
+		assert_eq!(calc_mwc_block_reward(2_100_001) * MWC_BLOCKS_PER_GROUP, 2_380_952_380 * MWC_BLOCKS_PER_GROUP);
+		assert_eq!(calc_mwc_block_reward(2_100_000 * 3 + 1) * MWC_BLOCKS_PER_GROUP, 595_238_095 * MWC_BLOCKS_PER_GROUP);
+
+
+assert_eq!( total_blocks_reward, 21_000_000 * GRIN_BASE );
 	}
 }
