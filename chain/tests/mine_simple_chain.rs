@@ -593,6 +593,7 @@ fn spend_rewind_spend() {
 			vec![
 				build::coinbase_input(consensus::MIMBLE_FIRST_GROUP_REWARD, key_id_coinbase.clone()),
 				build::output(consensus::MIMBLE_FIRST_GROUP_REWARD - 20000, key_id30.clone()),
+
 			],
 			&kc,
 			&pb,
@@ -672,6 +673,7 @@ fn spend_in_fork_and_compact() {
 			vec![
 				build::coinbase_input(consensus::MIMBLE_FIRST_GROUP_REWARD, key_id2.clone()),
 				build::output(consensus::MIMBLE_FIRST_GROUP_REWARD - 20000, key_id30.clone()),
+
 			],
 			&kc,
 			&pb,

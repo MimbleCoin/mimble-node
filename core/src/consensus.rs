@@ -470,6 +470,7 @@ mod test {
 		assert_eq!(calc_mwc_block_reward(2_100_000 * 11 + 200), MIMBLE_SECOND_GROUP_REWARD /1024); // group 11
 		assert_eq!(calc_mwc_block_reward(2_100_000 * 12 + 200), MIMBLE_SECOND_GROUP_REWARD /2048); // group 12
 		assert_eq!(calc_mwc_block_reward(2_100_000 * 13 + 200), MIMBLE_SECOND_GROUP_REWARD /4096); // group 13
+
 		assert_eq!(calc_mwc_block_reward(2_100_000 * 33 + 200), 0); // group 33+
 		assert_eq!(calc_mwc_block_reward(2_100_000 * 320 + 200), 0); // group 33+
 	}
@@ -478,6 +479,7 @@ mod test {
 	#[test]
 	fn test_calc_mwc_block_overage() {
 		let genesis_reward: u64 = GENESIS_BLOCK_REWARD;
+
 		assert_eq!(calc_mwc_block_overage(0, true), genesis_reward); // Doesn't make sence to call for the genesis block
 
 		assert_eq!(calc_mwc_block_reward(1) * MIMBLE_BLOCKS_PER_GROUP
@@ -521,6 +523,7 @@ mod test {
 		assert_eq!(
 			calc_mwc_block_overage(1, true),
 			genesis_reward + MIMBLE_FIRST_GROUP_REWARD * 1
+
 		);
 
 		assert_eq!(
@@ -539,8 +542,7 @@ mod test {
         // last block in the first group
 		assert_eq!(
 			calc_mwc_block_overage(MIMBLE_BLOCKS_PER_GROUP, true),
-			genesis_reward
-				+ MIMBLE_FIRST_GROUP_REWARD * MIMBLE_BLOCKS_PER_GROUP
+			genesis_reward + MIMBLE_FIRST_GROUP_REWARD * MIMBLE_BLOCKS_PER_GROUP
 		);
         // first block in the second group
         assert_eq!(
@@ -571,13 +573,14 @@ mod test {
                 + MIMBLE_SECOND_GROUP_REWARD / 2 * 60
         );
 
-     
 
 		assert_eq!(
 			calc_mwc_block_overage(MIMBLE_BLOCKS_PER_GROUP + 5000, true),
 			genesis_reward
+
 				+ MIMBLE_FIRST_GROUP_REWARD * MIMBLE_BLOCKS_PER_GROUP 
 				+ 5000 * MIMBLE_SECOND_GROUP_REWARD 
+
 		);
 
 		// Calculating the total number of coins 
@@ -589,5 +592,6 @@ mod test {
 
 
 assert_eq!( total_blocks_reward, 21_000_000 * MIMBLE_BASE );
+
 	}
 }
