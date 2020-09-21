@@ -12,12 +12,12 @@
 // limitations under the License.
 
 use chrono::Utc;
-use grin_core::consensus::{
+use mimble_core::consensus::{
 	next_difficulty, HeaderInfo, AR_SCALE_DAMP_FACTOR, BLOCK_TIME_SEC, DIFFICULTY_ADJUST_WINDOW,
 	MIN_DIFFICULTY,
 };
-use grin_core::global;
-use grin_core::pow::Difficulty;
+use mimble_core::global;
+use mimble_core::pow::Difficulty;
 
 /// Checks different next_target adjustments and difficulty boundaries
 #[test]

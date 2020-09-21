@@ -16,7 +16,7 @@
 //! Setting global::mining_mode() changes global shared state so automated tests should only use one
 //! mining mode/chain type per test file to avoid non-deterministic behaviour.
 
-use grin_core as core;
+use mimble_core as core;
 
 use self::core::consensus::*;
 use self::core::core::block::HeaderVersion;
@@ -461,39 +461,39 @@ fn test_secondary_pow_ratio() {
 		global::set_mining_mode(global::ChainTypes::Mainnet);
 		assert_eq!(global::is_floonet(), false);
 
-		assert_eq!(secondary_pow_ratio(1), 45);
-		assert_eq!(secondary_pow_ratio(89), 45);
-		assert_eq!(secondary_pow_ratio(90), 45);
-		assert_eq!(secondary_pow_ratio(91), 45);
-		assert_eq!(secondary_pow_ratio(179), 45);
-		assert_eq!(secondary_pow_ratio(180), 45);
-		assert_eq!(secondary_pow_ratio(181), 45);
+		assert_eq!(secondary_pow_ratio(1), 90);
+		assert_eq!(secondary_pow_ratio(89), 90);
+		assert_eq!(secondary_pow_ratio(90), 90);
+		assert_eq!(secondary_pow_ratio(91), 90);
+		assert_eq!(secondary_pow_ratio(179), 90);
+		assert_eq!(secondary_pow_ratio(180), 90);
+		assert_eq!(secondary_pow_ratio(181), 90);
 
 		let half_week = 30 * 24 * 7;
-		assert_eq!(secondary_pow_ratio(half_week - 1), 45);
-		assert_eq!(secondary_pow_ratio(half_week), 45);
-		assert_eq!(secondary_pow_ratio(half_week + 1), 45);
+		assert_eq!(secondary_pow_ratio(half_week - 1), 90);
+		assert_eq!(secondary_pow_ratio(half_week), 90);
+		assert_eq!(secondary_pow_ratio(half_week + 1), 90);
 
 		let one_week = half_week * 2;
-		assert_eq!(secondary_pow_ratio(one_week - 1), 45);
-		assert_eq!(secondary_pow_ratio(one_week), 45);
-		assert_eq!(secondary_pow_ratio(one_week + 1), 45);
+		assert_eq!(secondary_pow_ratio(one_week - 1), 90);
+		assert_eq!(secondary_pow_ratio(one_week), 90);
+		assert_eq!(secondary_pow_ratio(one_week + 1), 90);
 
 		let three_weeks = one_week * 3;
-		assert_eq!(secondary_pow_ratio(three_weeks), 43);
+		assert_eq!(secondary_pow_ratio(three_weeks), 88);
 
 		let one_year = one_week * 52;
-		assert_eq!(secondary_pow_ratio(one_year), 0);
+		assert_eq!(secondary_pow_ratio(one_year), 45);
 
 		let ninety_one_weeks = one_week * 91;
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks - 1), 0);
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks), 0);
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks + 1), 0);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks - 1), 12);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks), 12);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks + 1), 12);
 
-		let two_year = one_year * 2;
-		assert_eq!(secondary_pow_ratio(two_year - 1), 0);
-		assert_eq!(secondary_pow_ratio(two_year), 0);
-		assert_eq!(secondary_pow_ratio(two_year + 1), 0);
+		let four_year = one_year * 4;
+		assert_eq!(secondary_pow_ratio(four_year - 1), 0);
+		assert_eq!(secondary_pow_ratio(four_year), 0);
+		assert_eq!(secondary_pow_ratio(four_year + 1), 0);
 	}
 
 	// Tests for testnet4 chain type (covers pre and post hardfork).
@@ -501,41 +501,39 @@ fn test_secondary_pow_ratio() {
 		global::set_mining_mode(global::ChainTypes::Floonet);
 		assert_eq!(global::is_floonet(), true);
 
-		assert_eq!(secondary_pow_ratio(1), 45);
-		assert_eq!(secondary_pow_ratio(89), 45);
-		assert_eq!(secondary_pow_ratio(90), 45);
-		assert_eq!(secondary_pow_ratio(91), 45);
-		assert_eq!(secondary_pow_ratio(179), 45);
-		assert_eq!(secondary_pow_ratio(180), 45);
-		assert_eq!(secondary_pow_ratio(181), 45);
+		assert_eq!(secondary_pow_ratio(1), 90);
+		assert_eq!(secondary_pow_ratio(89), 90);
+		assert_eq!(secondary_pow_ratio(90), 90);
+		assert_eq!(secondary_pow_ratio(91), 90);
+		assert_eq!(secondary_pow_ratio(179), 90);
+		assert_eq!(secondary_pow_ratio(180), 90);
+		assert_eq!(secondary_pow_ratio(181), 90);
 
-		let one_week = 60 * 24 * 7;
-		assert_eq!(secondary_pow_ratio(one_week - 1), 45);
-		assert_eq!(secondary_pow_ratio(one_week), 45);
-		assert_eq!(secondary_pow_ratio(one_week + 1), 45);
+		let half_week = 30 * 24 * 7;
+		assert_eq!(secondary_pow_ratio(half_week - 1), 90);
+		assert_eq!(secondary_pow_ratio(half_week), 90);
+		assert_eq!(secondary_pow_ratio(half_week + 1), 90);
 
-		let two_weeks = one_week * 2;
-		assert_eq!(secondary_pow_ratio(two_weeks - 1), 44);
-		assert_eq!(secondary_pow_ratio(two_weeks), 44);
-		assert_eq!(secondary_pow_ratio(two_weeks + 1), 44);
+		let one_week = half_week * 2;
+		assert_eq!(secondary_pow_ratio(one_week - 1), 90);
+		assert_eq!(secondary_pow_ratio(one_week), 90);
+		assert_eq!(secondary_pow_ratio(one_week + 1), 90);
 
-		let t4_fork_height = 64_000;
-		assert_eq!(secondary_pow_ratio(t4_fork_height - 1), 40);
-		assert_eq!(secondary_pow_ratio(t4_fork_height), 40);
-		assert_eq!(secondary_pow_ratio(t4_fork_height + 1), 40);
+		let three_weeks = one_week * 3;
+		assert_eq!(secondary_pow_ratio(three_weeks), 88);
 
 		let one_year = one_week * 52;
-		assert_eq!(secondary_pow_ratio(one_year), 0);
+		assert_eq!(secondary_pow_ratio(one_year), 45);
 
 		let ninety_one_weeks = one_week * 91;
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks - 1), 0);
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks), 0);
-		assert_eq!(secondary_pow_ratio(ninety_one_weeks + 1), 0);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks - 1), 12);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks), 12);
+		assert_eq!(secondary_pow_ratio(ninety_one_weeks + 1), 12);
 
-		let two_year = one_year * 2;
-		assert_eq!(secondary_pow_ratio(two_year - 1), 0);
-		assert_eq!(secondary_pow_ratio(two_year), 0);
-		assert_eq!(secondary_pow_ratio(two_year + 1), 0);
+		let four_year = one_year * 4;
+		assert_eq!(secondary_pow_ratio(four_year - 1), 0);
+		assert_eq!(secondary_pow_ratio(four_year), 0);
+		assert_eq!(secondary_pow_ratio(four_year + 1), 0);
 	}
 }
 
@@ -560,7 +558,7 @@ fn test_secondary_pow_scale() {
 		hi.is_secondary = true;
 		assert_eq!(
 			secondary_pow_scaling(1, &(0..window).map(|_| hi.clone()).collect::<Vec<_>>()),
-			91
+			99
 		);
 		// all secondary on 1%, factor should go down to bound (divide by 2)
 		assert_eq!(
@@ -568,7 +566,7 @@ fn test_secondary_pow_scale() {
 				2 * YEAR_HEIGHT * 83 / 90,
 				&(0..window).map(|_| hi.clone()).collect::<Vec<_>>()
 			),
-			13
+			50
 		);
 		// same as above, testing lowest bound
 		let mut low_hi =
@@ -592,7 +590,7 @@ fn test_secondary_pow_scale() {
 					.chain((0..(window * 9 / 10)).map(|_| hi.clone()))
 					.collect::<Vec<_>>()
 			),
-			88,
+			95,
 		);
 		// 95% secondary, should come down based on 97.5 average
 		assert_eq!(
@@ -603,7 +601,7 @@ fn test_secondary_pow_scale() {
 					.chain((0..(window * 95 / 100)).map(|_| hi.clone()))
 					.collect::<Vec<_>>()
 			),
-			89
+			97
 		);
 		// 40% secondary, should come up based on 70 average
 		assert_eq!(
@@ -614,7 +612,7 @@ fn test_secondary_pow_scale() {
 					.chain((0..(window * 4 / 10)).map(|_| hi.clone()))
 					.collect::<Vec<_>>()
 			),
-			70
+			73
 		);
 	}
 }
@@ -622,21 +620,21 @@ fn test_secondary_pow_scale() {
 #[test]
 fn hard_forks() {
 	// Tests for mainnet chain type.
-	{
+	{	
 		global::set_mining_mode(global::ChainTypes::Mainnet);
 		assert_eq!(global::is_floonet(), false);
 		assert!(valid_header_version(0, HeaderVersion(1)));
-		assert!(valid_header_version(YEAR_HEIGHT, HeaderVersion(2)));
-		assert!(valid_header_version(YEAR_HEIGHT * 10, HeaderVersion(2)));
-		assert!(valid_header_version(YEAR_HEIGHT * 100, HeaderVersion(2)));
+		assert!(valid_header_version(YEAR_HEIGHT, HeaderVersion(1)));
+		assert!(valid_header_version(YEAR_HEIGHT * 10, HeaderVersion(1)));
+		assert!(valid_header_version(YEAR_HEIGHT * 100, HeaderVersion(1)));
 	}
 	// Tests for floonet chain type.
 	{
 		global::set_mining_mode(global::ChainTypes::Floonet);
 		assert_eq!(global::is_floonet(), true);
 		assert!(valid_header_version(0, HeaderVersion(1)));
-		assert!(valid_header_version(YEAR_HEIGHT, HeaderVersion(2)));
-		assert!(valid_header_version(YEAR_HEIGHT * 10, HeaderVersion(2)));
-		assert!(valid_header_version(YEAR_HEIGHT * 100, HeaderVersion(2)));
+		assert!(valid_header_version(YEAR_HEIGHT, HeaderVersion(1)));
+		assert!(valid_header_version(YEAR_HEIGHT * 10, HeaderVersion(1)));
+		assert!(valid_header_version(YEAR_HEIGHT * 100, HeaderVersion(1)));
 	}
 }
