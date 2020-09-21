@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use grin_chain as chain;
-use grin_core as core;
+use mimble_chain as chain;
+use mimble_core as core;
 
-use grin_util as util;
+use mimble_util as util;
 
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
@@ -25,7 +25,7 @@ use crate::chain::store::ChainStore;
 use crate::chain::txhashset;
 use crate::core::core::BlockHeader;
 use crate::util::file;
-use grin_core::core::hash::Hashed;
+use mimble_core::core::hash::Hashed;
 
 fn clean_output_dir(dir_name: &str) {
 	let _ = fs::remove_dir_all(dir_name);

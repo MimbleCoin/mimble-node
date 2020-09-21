@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use self::core::genesis;
-use grin_core as core;
-use grin_util as util;
+use mimble_core as core;
+use mimble_util as util;
 
 mod chain_test_helper;
 

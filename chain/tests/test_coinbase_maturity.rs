@@ -24,10 +24,10 @@ use self::keychain::{ExtKeychain, ExtKeychainPath, Keychain};
 use self::util::RwLock;
 use chrono::Duration;
 use env_logger;
-use grin_chain as chain;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_util as util;
+use mimble_chain as chain;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_util as util;
 use std::fs;
 use std::sync::Arc;
 

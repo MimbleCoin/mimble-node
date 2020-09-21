@@ -21,10 +21,10 @@ use self::keychain::{ExtKeychain, Keychain};
 use self::pool::types::{BlockChain, PoolError};
 use self::util::RwLock;
 use crate::common::*;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_pool as pool;
-use grin_util as util;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_pool as pool;
+use mimble_util as util;
 use std::sync::Arc;
 
 #[derive(Clone)]

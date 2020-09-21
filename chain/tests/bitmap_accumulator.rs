@@ -16,9 +16,9 @@ use self::chain::txhashset::BitmapAccumulator;
 use self::core::core::hash::Hash;
 use self::core::ser::PMMRIndexHashable;
 use bit_vec::BitVec;
-use grin_chain as chain;
-use grin_core as core;
-use grin_util as util;
+use mimble_chain as chain;
+use mimble_core as core;
+use mimble_util as util;
 
 #[test]
 fn test_bitmap_accumulator() {
