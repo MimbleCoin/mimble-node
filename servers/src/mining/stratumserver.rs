@@ -23,7 +23,7 @@ use tokio_util::codec::{Framed, LinesCodec};
 
 use crate::util::RwLock;
 use chrono::prelude::Utc;
-use grin_core::core::hash::Hash;
+use mimble_core::core::hash::Hash;
 use serde;
 use serde_json;
 use serde_json::Value;

@@ -25,8 +25,8 @@ use self::util::RwLock;
 use crate::pool::Pool;
 use crate::types::{BlockChain, PoolAdapter, PoolConfig, PoolEntry, PoolError, TxSource};
 use chrono::prelude::*;
-use grin_core as core;
-use grin_util as util;
+use mimble_core as core;
+use mimble_util as util;
 use std::collections::VecDeque;
 use std::sync::Arc;
 

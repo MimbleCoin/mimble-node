@@ -26,14 +26,14 @@ extern crate serde_derive;
 #[macro_use]
 extern crate log;
 
-use grin_api as api;
-use grin_chain as chain;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_p2p as p2p;
-use grin_pool as pool;
-use grin_store as store;
-use grin_util as util;
+use mimble_api as api;
+use mimble_chain as chain;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_p2p as p2p;
+use mimble_pool as pool;
+use mimble_store as store;
+use mimble_util as util;
 
 mod error;
 pub use crate::error::{Error, ErrorKind};

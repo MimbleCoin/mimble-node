@@ -29,9 +29,9 @@ extern crate serde_derive;
 extern crate log;
 
 use failure;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_util as util;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_util as util;
 
 mod chain;
 mod error;

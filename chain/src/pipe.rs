@@ -25,8 +25,8 @@ use crate::store;
 use crate::txhashset;
 use crate::types::{CommitPos, Options, Tip};
 use crate::util::RwLock;
-use grin_core::core::hash::Hash;
-use grin_store;
+use mimble_core::core::hash::Hash;
+use mimble_store;
 use std::sync::Arc;
 
 /// Contextual information required to process a new block and either reject or
@@ -323,7 +323,7 @@ fn prev_header_store(
 	batch: &mut store::Batch<'_>,
 ) -> Result<BlockHeader, Error> {
 	let prev = batch.get_previous_header(&header).map_err(|e| match e {
-		grin_store::Error::NotFoundErr(_) => {
+		mimble_store::Error::NotFoundErr(_) => {
 			ErrorKind::Orphan(format!("Header: {:?}, {}", header, e))
 		}
 		_ => ErrorKind::StoreErr(e, "check prev header".into()),

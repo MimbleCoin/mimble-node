@@ -997,8 +997,8 @@ mod test {
 	use crate::tui::peers::PeerColumn;
 	use crate::tui::table::TableView;
 	use chrono::Utc;
-	use grin_core::ser::ProtocolVersion;
-	use grin_servers::PeerStats;
+	use mimble_core::ser::ProtocolVersion;
+	use mimble_servers::PeerStats;
 	use std::cmp::Ordering;
 
 	#[test]

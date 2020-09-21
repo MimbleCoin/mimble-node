@@ -22,8 +22,8 @@ use crate::core::ser::ProtocolVersion;
 use crate::types::{CommitPos, Tip};
 use crate::util::secp::pedersen::Commitment;
 use croaring::Bitmap;
-use grin_store as store;
-use grin_store::{option_to_not_found, to_key, Error, SerIterator};
+use mimble_store as store;
+use mimble_store::{option_to_not_found, to_key, Error, SerIterator};
 use std::convert::TryInto;
 use std::sync::Arc;
 

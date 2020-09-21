@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use grin_chain as chain;
-use grin_core as core;
-use grin_p2p as p2p;
-use grin_pool as pool;
+use mimble_chain as chain;
+use mimble_core as core;
+use mimble_p2p as p2p;
+use mimble_pool as pool;
 
-use grin_util as util;
+use mimble_util as util;
 
 use failure;
 #[macro_use]

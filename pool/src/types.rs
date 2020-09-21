@@ -24,8 +24,8 @@ use self::core::core::transaction::{self, Transaction};
 use self::core::core::{BlockHeader, BlockSums};
 use self::core::{consensus, global};
 use failure::Fail;
-use grin_core as core;
-use grin_keychain as keychain;
+use mimble_core as core;
+use mimble_keychain as keychain;
 
 /// Dandelion "epoch" length.
 const DANDELION_EPOCH_SECS: u16 = 600;
@@ -140,7 +140,7 @@ impl Default for PoolConfig {
 }
 
 fn default_accept_fee_base() -> u64 {
-	consensus::MILLI_GRIN
+	consensus::MILLI_MIMBLE
 }
 fn default_max_pool_size() -> usize {
 	150_000

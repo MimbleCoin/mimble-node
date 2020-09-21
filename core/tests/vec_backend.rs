@@ -16,7 +16,7 @@ mod common;
 
 use self::core::core::pmmr::{VecBackend, PMMR};
 use crate::common::TestElem;
-use grin_core as core;
+use mimble_core as core;
 
 #[test]
 fn leaf_pos_and_idx_iter_test() {

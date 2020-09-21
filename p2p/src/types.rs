@@ -30,7 +30,7 @@ use serde::de::{SeqAccess, Visitor};
 use serde::{Deserialize, Deserializer};
 use std::sync::atomic::AtomicUsize;
 
-use grin_store;
+use mimble_store;
 
 use crate::chain;
 use crate::core::core;
@@ -89,7 +89,7 @@ pub enum Error {
 	#[fail(display = "p2p timeout")]
 	Timeout,
 	#[fail(display = "p2p store error, {}", _0)]
-	Store(grin_store::Error),
+	Store(mimble_store::Error),
 	#[fail(display = "p2p chain error, {}", _0)]
 	Chain(chain::Error),
 	#[fail(display = "peer with self")]
@@ -115,8 +115,8 @@ impl From<ser::Error> for Error {
 		Error::Serialization(e)
 	}
 }
-impl From<grin_store::Error> for Error {
-	fn from(e: grin_store::Error) -> Error {
+impl From<mimble_store::Error> for Error {
+	fn from(e: mimble_store::Error) -> Error {
 		Error::Store(e)
 	}
 }

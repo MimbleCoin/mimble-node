@@ -34,7 +34,7 @@ use crate::types::{
 };
 use crate::util::secp::pedersen::{Commitment, RangeProof};
 use crate::util::RwLock;
-use grin_store::Error::NotFoundErr;
+use mimble_store::Error::NotFoundErr;
 use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::Read;

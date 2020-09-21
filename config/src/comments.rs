@@ -167,7 +167,7 @@ fn comments() -> HashMap<String, String> {
 		"
 #Whether to run a test miner. This is only for developer testing (chaintype
 #usertesting) at cuckoo 16, and will only mine into the default wallet port.
-#real mining should use the standalone grin-miner
+#real mining should use the standalone mimble-miner
 "
 		.to_string(),
 	);

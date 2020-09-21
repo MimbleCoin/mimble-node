@@ -18,7 +18,7 @@ use self::core::core::merkle_proof::MerkleProof;
 use self::core::core::pmmr::{VecBackend, PMMR};
 use self::core::ser::{self, PMMRIndexHashable};
 use crate::common::TestElem;
-use grin_core as core;
+use mimble_core as core;
 
 #[test]
 fn empty_merkle_proof() {

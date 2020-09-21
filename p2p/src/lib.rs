@@ -27,9 +27,9 @@ extern crate bitflags;
 extern crate enum_primitive;
 
 #[macro_use]
-extern crate grin_core as core;
-use grin_chain as chain;
-use grin_util as util;
+extern crate mimble_core as core;
+use mimble_chain as chain;
+use mimble_util as util;
 
 #[macro_use]
 extern crate serde_derive;

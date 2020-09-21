@@ -19,7 +19,7 @@ use self::core::core::pmmr::{self, VecBackend, PMMR};
 use self::core::ser::PMMRIndexHashable;
 use crate::common::TestElem;
 use chrono::prelude::Utc;
-use grin_core as core;
+use mimble_core as core;
 use std::u64;
 
 #[test]

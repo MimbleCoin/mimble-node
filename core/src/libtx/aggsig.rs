@@ -32,7 +32,7 @@ use util::secp::{self, aggsig, Message, Secp256k1, Signature};
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// use core::libtx::aggsig;
 /// use util::secp::{ContextFlag, Secp256k1};
 /// let secp = Secp256k1::with_caps(ContextFlag::SignOnly);
@@ -65,7 +65,7 @@ pub fn create_secnonce(secp: &Secp256k1) -> Result<SecretKey, Error> {
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// # extern crate rand;
 /// use rand::thread_rng;
 /// use core::libtx::aggsig;
@@ -135,7 +135,7 @@ pub fn calculate_partial_sig(
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// # extern crate rand;
 /// use rand::thread_rng;
 /// use core::libtx::aggsig;
@@ -217,7 +217,7 @@ pub fn verify_partial_sig(
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// use core::consensus::reward;
 /// use util::secp::key::{PublicKey, SecretKey};
 /// use util::secp::{ContextFlag, Secp256k1};
@@ -283,7 +283,7 @@ where
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// use core::consensus::reward;
 /// use core::libtx::{aggsig, proof};
 /// use util::secp::key::{PublicKey, SecretKey};
@@ -354,7 +354,7 @@ pub fn verify_single_from_commit(
 /// # Example
 ///
 /// ```
-/// # extern crate grin_core as core;
+/// # extern crate mimble_core as core;
 /// # extern crate rand;
 /// use rand::thread_rng;
 /// use core::libtx::aggsig;

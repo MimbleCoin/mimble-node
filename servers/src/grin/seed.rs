@@ -19,7 +19,7 @@
 
 use chrono::prelude::{DateTime, Utc};
 use chrono::{Duration, MIN_DATE};
-use grin_p2p::PeerAddr::Onion;
+use mimble_p2p::PeerAddr::Onion;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::collections::HashMap;

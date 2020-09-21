@@ -17,7 +17,7 @@ pub mod common;
 use self::core::core::verifier_cache::{LruVerifierCache, VerifierCache};
 use self::core::core::{Output, OutputFeatures};
 use self::core::libtx::proof;
-use grin_core as core;
+use mimble_core as core;
 use keychain::{ExtKeychain, Keychain, SwitchCommitmentType};
 use std::sync::Arc;
 use util::RwLock;

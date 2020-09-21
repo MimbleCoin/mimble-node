@@ -19,7 +19,7 @@ use crate::rest::*;
 use crate::router::{Handler, ResponseFuture};
 use crate::types::*;
 use crate::web::*;
-use grin_core::global;
+use mimble_core::global;
 use hyper::{Body, Request, StatusCode};
 use serde_json::json;
 use std::sync::atomic::Ordering;

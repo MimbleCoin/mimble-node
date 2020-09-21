@@ -295,7 +295,7 @@ impl HeaderSync {
 			if header_cache_size > 0 {
 				// we insert a final record that indicates which index to use. Ignored by older
 				// versions, but understood by current version.
-				let mut zero_hash = grin_core::core::hash::ZERO_HASH.to_vec();
+				let mut zero_hash = mimble_core::core::hash::ZERO_HASH.to_vec();
 				zero_hash[0] = index;
 				zero_hash[1] = peer_count;
 				locator.push(Hash::from_vec(&zero_hash));

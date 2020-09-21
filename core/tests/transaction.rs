@@ -19,7 +19,7 @@ pub mod common;
 use self::core::core::{Output, OutputFeatures};
 use self::core::libtx::proof;
 use self::core::ser;
-use grin_core as core;
+use mimble_core as core;
 use keychain::{ExtKeychain, Keychain};
 
 #[test]

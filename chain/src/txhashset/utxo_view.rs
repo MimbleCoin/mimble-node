@@ -22,7 +22,7 @@ use crate::core::ser::PMMRIndexHashable;
 use crate::error::{Error, ErrorKind};
 use crate::store::Batch;
 use crate::util::secp::pedersen::RangeProof;
-use grin_store::pmmr::PMMRBackend;
+use mimble_store::pmmr::PMMRBackend;
 
 /// Readonly view of the UTXO set (based on output MMR).
 pub struct UTXOView<'a> {

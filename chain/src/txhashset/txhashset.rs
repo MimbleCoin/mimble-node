@@ -29,8 +29,8 @@ use crate::types::{CommitPos, OutputRoots, Tip, TxHashSetRoots, TxHashsetWriteSt
 use crate::util::secp::pedersen::{Commitment, RangeProof};
 use crate::util::{file, secp_static, zip};
 use croaring::Bitmap;
-use grin_store;
-use grin_store::pmmr::{clean_files_by_prefix, PMMRBackend};
+use mimble_store;
+use mimble_store::pmmr::{clean_files_by_prefix, PMMRBackend};
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -243,7 +243,7 @@ impl TxHashSet {
 					.into())
 				}
 			}
-			Err(grin_store::Error::NotFoundErr(msg)) => {
+			Err(mimble_store::Error::NotFoundErr(msg)) => {
 				Err(ErrorKind::OutputNotFound(format!("Commit not found in imdb, {}", msg)).into())
 			}
 			Err(e) => Err(ErrorKind::StoreErr(e, "txhashset unspent check".to_string()).into()),

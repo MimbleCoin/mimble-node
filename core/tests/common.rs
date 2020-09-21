@@ -14,15 +14,15 @@
 
 //! Common test functions
 
-use grin_core::core::hash::DefaultHashable;
-use grin_core::core::{Block, BlockHeader, KernelFeatures, Transaction};
-use grin_core::libtx::{
+use mimble_core::core::hash::DefaultHashable;
+use mimble_core::core::{Block, BlockHeader, KernelFeatures, Transaction};
+use mimble_core::libtx::{
 	build::{self, input, output},
 	proof::{ProofBuild, ProofBuilder},
 	reward,
 };
-use grin_core::pow::Difficulty;
-use grin_core::ser::{self, PMMRable, Readable, Reader, Writeable, Writer};
+use mimble_core::pow::Difficulty;
+use mimble_core::ser::{self, PMMRable, Readable, Reader, Writeable, Writer};
 use keychain::{Identifier, Keychain};
 
 // utility producing a transaction with 2 inputs and a single outputs

@@ -25,9 +25,9 @@ use crate::core::global;
 use crate::p2p::Seeding;
 use crate::servers;
 use crate::tui::ui;
-use grin_p2p::msg::PeerAddrs;
-use grin_p2p::PeerAddr;
-use grin_util::logger::LogEntry;
+use mimble_p2p::msg::PeerAddrs;
+use mimble_p2p::PeerAddr;
+use mimble_util::logger::LogEntry;
 use std::sync::mpsc;
 
 /// wrap below to allow UI to clean up on stop

@@ -24,8 +24,8 @@ use self::core::core::{
 };
 use self::util::RwLock;
 use crate::types::{BlockChain, PoolEntry, PoolError};
-use grin_core as core;
-use grin_util as util;
+use mimble_core as core;
+use mimble_util as util;
 use std::cmp::Reverse;
 use std::collections::{HashMap, HashSet};
 use std::sync::Arc;

@@ -92,7 +92,7 @@ fn test_coinbase_maturity() {
 
 		let prev = chain.head_header().unwrap();
 
-		let amount = consensus::MWC_FIRST_GROUP_REWARD;
+		let amount = consensus::MIMBLE_FIRST_GROUP_REWARD;
 
 		let lock_height = 1 + global::coinbase_maturity();
 		assert_eq!(lock_height, 4);
@@ -175,7 +175,7 @@ fn test_coinbase_maturity() {
 
 			let prev = chain.head_header().unwrap();
 
-			let amount = consensus::MWC_FIRST_GROUP_REWARD;
+			let amount = consensus::MIMBLE_FIRST_GROUP_REWARD;
 
 			let lock_height = 1 + global::coinbase_maturity();
 			assert_eq!(lock_height, 4);

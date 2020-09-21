@@ -28,7 +28,7 @@ use chrono::prelude::*;
 
 use crate::chain::SyncStatus;
 use crate::p2p;
-use grin_core::pow::Difficulty;
+use mimble_core::pow::Difficulty;
 
 /// Server state info collection struct, to be passed around into internals
 /// and populated when required

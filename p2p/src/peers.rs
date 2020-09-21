@@ -35,7 +35,7 @@ use crate::types::{
 };
 use chrono::prelude::*;
 use chrono::Duration;
-use grin_util::StopState;
+use mimble_util::StopState;
 
 const LOCK_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(2);
 

@@ -103,12 +103,12 @@ impl Default for LoggingConfig {
 /// This filter is rejecting messages that doesn't start with "grin"
 /// in order to save log space for only Grin-related records
 #[derive(Debug)]
-struct GrinFilter;
+struct MimbleFilter;
 
-impl Filter for GrinFilter {
+impl Filter for MimbleFilter {
 	fn filter(&self, record: &Record<'_>) -> Response {
 		if let Some(module_path) = record.module_path() {
-			if module_path.starts_with("grin") {
+			if module_path.starts_with("mimble") {
 				return Response::Neutral;
 			}
 		}
@@ -182,7 +182,7 @@ pub fn init_logger(config: Option<LoggingConfig>, logs_tx: Option<mpsc::SyncSend
 			appenders.push(
 				Appender::builder()
 					.filter(Box::new(ThresholdFilter::new(level_stdout)))
-					.filter(Box::new(GrinFilter))
+					.filter(Box::new(MimbleFilter))
 					.build("tui", Box::new(channel_appender)),
 			);
 			root = root.appender("tui");
@@ -190,7 +190,7 @@ pub fn init_logger(config: Option<LoggingConfig>, logs_tx: Option<mpsc::SyncSend
 			appenders.push(
 				Appender::builder()
 					.filter(Box::new(ThresholdFilter::new(level_stdout)))
-					.filter(Box::new(GrinFilter))
+					.filter(Box::new(MimbleFilter))
 					.build("stdout", Box::new(stdout)),
 			);
 			root = root.appender("stdout");
@@ -231,7 +231,7 @@ pub fn init_logger(config: Option<LoggingConfig>, logs_tx: Option<mpsc::SyncSend
 			appenders.push(
 				Appender::builder()
 					.filter(filter)
-					.filter(Box::new(GrinFilter))
+					.filter(Box::new(MimbleFilter))
 					.build("file", file),
 			);
 			root = root.appender("file");
@@ -288,7 +288,7 @@ pub fn init_test_logger() {
 		appenders.push(
 			Appender::builder()
 				.filter(filter)
-				.filter(Box::new(GrinFilter))
+				.filter(Box::new(MimbleFilter))
 				.build("stdout", Box::new(stdout)),
 		);
 

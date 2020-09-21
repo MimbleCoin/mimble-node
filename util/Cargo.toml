@@ -1,10 +1,10 @@
 [package]
-name = "grin_util"
+name = "mimble_util"
 version = "4.0.0"
 authors = ["Grin Developers <mimblewimble@lists.launchpad.net>"]
 description = "Simple, private and scalable cryptocurrency implementation based on the MimbleWimble chain format."
 license = "Apache-2.0"
-repository = "https://github.com/mimblewimble/grin"
+repository = "https://github.com/MimbleCoin/mimble-node"
 keywords = [ "crypto", "grin", "mimblewimble" ]
 workspace = ".."
 edition = "2018"

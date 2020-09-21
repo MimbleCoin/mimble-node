@@ -26,10 +26,10 @@ use failure;
 #[macro_use]
 extern crate failure_derive;
 #[macro_use]
-extern crate grin_core as core;
-extern crate grin_util as util;
+extern crate mimble_core as core;
+extern crate mimble_util as util;
 
-//use grin_core as core;
+//use mimble_core as core;
 
 pub mod leaf_set;
 pub mod lmdb;

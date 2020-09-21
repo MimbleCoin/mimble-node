@@ -36,7 +36,7 @@ use std::{
 use crate::ErrorKind;
 
 use fs2::FileExt;
-use grin_util::OnionV3Address;
+use mimble_util::OnionV3Address;
 use walkdir::WalkDir;
 
 use crate::api;
@@ -65,7 +65,7 @@ use crate::pool;
 use crate::tor::process as tor_process;
 use crate::util::file::get_first_line;
 use crate::util::{RwLock, StopState};
-use grin_util::logger::LogEntry;
+use mimble_util::logger::LogEntry;
 use std::collections::HashSet;
 use std::sync::atomic::Ordering;
 
@@ -161,7 +161,7 @@ impl Server {
 	// Exclusive (advisory) lock_file to ensure we do not run multiple
 	// instance of grin server from the same dir.
 	// This uses fs2 and should be safe cross-platform unless somebody abuses the file itself.
-	fn one_grin_at_a_time(config: &ServerConfig) -> Result<Arc<File>, Error> {
+	fn one_mimble_at_a_time(config: &ServerConfig) -> Result<Arc<File>, Error> {
 		let path = Path::new(&config.db_root);
 		fs::create_dir_all(path.clone())?;
 		let path = path.join("mimble.lock");
@@ -197,7 +197,7 @@ impl Server {
 		let duration_sync_short = config.duration_sync_short.unwrap_or(100);
 
 		// Obtain our lock_file or fail immediately with an error.
-		let lock_file = Server::one_grin_at_a_time(&config).map_err(|e| {
+		let lock_file = Server::one_mimble_at_a_time(&config).map_err(|e| {
 			error!(
 				"Unable to lock db. Likely your DB path is wrong. Error: {}",
 				e

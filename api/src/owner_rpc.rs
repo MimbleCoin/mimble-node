@@ -18,7 +18,7 @@ use crate::owner::Owner;
 use crate::p2p::PeerData;
 use crate::rest::ErrorKind;
 use crate::types::Status;
-use grin_p2p::types::PeerInfoDisplayLegacy;
+use mimble_p2p::types::PeerInfoDisplayLegacy;
 use std::net::SocketAddr;
 
 /// Public definition used to generate Node jsonrpc api.
@@ -33,7 +33,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -78,7 +78,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -108,7 +108,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -138,7 +138,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -180,7 +180,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -299,7 +299,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -329,7 +329,7 @@ pub trait OwnerRpc: Sync + Send {
 	# Json rpc example
 
 	```
-	# grin_api::doctest_helper_json_rpc_owner_assert_response!(
+	# mimble_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -392,8 +392,8 @@ macro_rules! doctest_helper_json_rpc_owner_assert_response {
 		// json response.
 
 			{
-			/*use grin_servers::test_framework::framework::run_doctest;
-			use grin_util as util;
+			/*use mimble_servers::test_framework::framework::run_doctest;
+			use mimble_util as util;
 			use serde_json;
 			use serde_json::Value;
 			use tempfile::tempdir;

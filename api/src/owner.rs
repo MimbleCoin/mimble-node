@@ -21,7 +21,7 @@ use crate::handlers::server_api::StatusHandler;
 use crate::p2p::{self, PeerData};
 use crate::rest::*;
 use crate::types::Status;
-use grin_p2p::types::PeerInfoDisplayLegacy;
+use mimble_p2p::types::PeerInfoDisplayLegacy;
 use std::net::SocketAddr;
 use std::sync::Weak;
 
