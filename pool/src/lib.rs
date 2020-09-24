@@ -21,9 +21,9 @@
 #![deny(unused_mut)]
 
 //extern crate blake2_rfc as blake2;
-//extern crate grin_core as core;
-//extern crate grin_keychain as keychain;
-//extern crate grin_util as util;
+//extern crate mimble_core as core;
+//extern crate mimble_keychain as keychain;
+//extern crate mimble_util as util;
 #[allow(unused_imports)]
 #[macro_use] // Needed for Serialize/Deserialize. The compiler complaining here is a bug.
 extern crate serde_derive;

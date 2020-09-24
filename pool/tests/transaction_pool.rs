@@ -23,10 +23,10 @@ use self::pool::TxSource;
 use self::util::RwLock;
 use crate::common::*;
 use env_logger;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_pool as pool;
-use grin_util as util;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_pool as pool;
+use mimble_util as util;
 use std::sync::Arc;
 #[macro_use]
 extern crate log;
@@ -39,7 +39,7 @@ fn test_the_transaction_pool() {
 
 	let keychain: ExtKeychain = Keychain::from_random_seed(false).unwrap();
 
-	let db_root = ".grin_transaction_pool".to_string();
+	let db_root = ".mimble_transaction_pool".to_string();
 	clean_output_dir(db_root.clone());
 
 	let chain = Arc::new(ChainAdapter::init(db_root.clone()).unwrap());
