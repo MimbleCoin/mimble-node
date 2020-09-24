@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use env_logger;
-use grin_core as core;
-use grin_store as store;
+use mimble_core as core;
+use mimble_store as store;
 
 use std::fs;
 
