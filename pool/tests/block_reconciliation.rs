@@ -23,9 +23,9 @@ use self::keychain::{ExtKeychain, Keychain};
 use self::util::RwLock;
 use crate::common::ChainAdapter;
 use crate::common::*;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_util as util;
+use mimble_core as core;
+use mimble_keychain as keychain;
+use mimble_util as util;
 use std::sync::Arc;
 
 use env_logger;
@@ -39,7 +39,7 @@ fn test_transaction_pool_block_reconciliation() {
 
 	let keychain: ExtKeychain = Keychain::from_random_seed(false).unwrap();
 
-	let db_root = ".grin_block_reconciliation".to_string();
+	let db_root = ".mimble_block_reconciliation".to_string();
 	clean_output_dir(db_root.clone());
 	{
 		let chain = Arc::new(ChainAdapter::init(db_root.clone()).unwrap());

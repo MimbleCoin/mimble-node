@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use grin_store as store;
+use mimble_store as store;
 
 use crate::store::prune_list::PruneList;
 use croaring::Bitmap;
